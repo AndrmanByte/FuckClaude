@@ -5,10 +5,7 @@
  * Everything runs locally in the browser.
  */
 import { SIGNALS, riskBand, signalVerdict, type SignalDef } from '../config/signals';
-import { CN_MODELS } from '../config/cn-models';
 import { useTranslations, type Lang } from '../i18n/ui';
-
-const KIMI_URL = CN_MODELS.find((m) => m.id === 'kimi')?.url ?? 'https://www.kimi.com/code?from=fuck-claude';
 
 const SCAN_STEP_MS = 460;
 const SETTLE_MS = 150;
@@ -91,18 +88,6 @@ function finalize(total: number, hits: Hit[]) {
   const desc = q('#risk-desc');
   if (desc) {
     desc.textContent = t(`band.${band}.desc`);
-    // High risk gets a consolation plug: "But you still have <Kimi Code>".
-    if (band === 'high') {
-      desc.append(` ${t('band.high.extra')} `);
-      const kimi = document.createElement('a');
-      kimi.href = KIMI_URL;
-      kimi.target = '_blank';
-      kimi.rel = 'noopener noreferrer';
-      kimi.textContent = t('band.high.extraLink');
-      kimi.setAttribute('data-ga-event', 'cn_model_click');
-      kimi.setAttribute('data-ga-id', 'kimi-band-high');
-      desc.appendChild(kimi);
-    }
   }
 
   const titleEl = q('#result-title');

@@ -26,21 +26,12 @@ export const ui = {
     'hero.badge.openSource': 'Open source',
     'hero.scoreOutOf': '/ 100',
 
-    'sponsors.label': 'Sponsors',
-    'sponsors.cta': 'Want to be listed here?',
-
-    'cnModels.label': 'Chinese AI models',
-    'cnModels.slogan': 'Chinese models are simply better',
-    'cnModels.cta': 'Check it out',
-
     'band.low.title': 'Low risk',
     'band.low.desc': '🐶You are not a “Claude China user”🐶',
     'band.medium.title': 'Medium risk',
     'band.medium.desc': '🐶You are probably a “Claude China user”🐶',
     'band.high.title': 'High risk',
     'band.high.desc': '🐶You are definitely a “Claude China user”🐶',
-    'band.high.extra': 'But you still have',
-    'band.high.extraLink': 'Kimi Code',
 
     'signal.timezone.name': 'System timezone',
     'signal.timezone.desc':
@@ -115,21 +106,12 @@ export const ui = {
     'hero.badge.openSource': '开源代码',
     'hero.scoreOutOf': '/ 100',
 
-    'sponsors.label': '赞助商',
-    'sponsors.cta': '想显示在下方？',
-
-    'cnModels.label': '国产大模型',
-    'cnModels.slogan': '模型还是中国的好',
-    'cnModels.cta': '去看看',
-
     'band.low.title': '低风险',
     'band.low.desc': '🐶你不是「Claude 中国用户」🐶',
     'band.medium.title': '中等风险',
     'band.medium.desc': '🐶你可能是「Claude 中国用户」🐶',
     'band.high.title': '高风险',
     'band.high.desc': '🐶你绝对是「Claude 中国用户」🐶',
-    'band.high.extra': '但是你还有',
-    'band.high.extraLink': 'Kimi Code',
 
     'signal.timezone.name': '系统时区',
     'signal.timezone.desc':

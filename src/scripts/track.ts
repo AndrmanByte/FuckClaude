@@ -1,10 +1,9 @@
 /**
  * Google Analytics click tracking for outbound promo links.
  *
- * Any element carrying `data-ga-event` (sponsor banners, domestic-model
- * cards, …) reports a GA4 event on click, e.g.:
- *   <a data-ga-event="sponsor_click" data-ga-id="ergou" href="…">
- * fires `sponsor_click` with { link_id, link_url, page_lang }.
+ * Any element carrying `data-ga-event` reports a GA4 event on click, e.g.:
+ *   <a data-ga-event="promo_click" data-ga-id="foo" href="…">
+ * fires `promo_click` with { link_id, link_url, page_lang }.
  *
  * gtag.js is loaded in BaseLayout's <head>; if it is blocked (ad blocker),
  * clicks simply pass through untracked.
