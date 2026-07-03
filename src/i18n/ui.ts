@@ -78,11 +78,11 @@ export const ui = {
       'Switch your OS timezone away from China zones such as Asia/Shanghai, move zh-CN off the top of your browser language list, and avoid routing Claude Code through proxies whose hostnames contain flagged domains or AI-lab keywords.',
     'faq.q4': 'Is any data uploaded?',
     'faq.a4':
-      'No. Every check runs locally in your browser and none of the detected signals are ever sent anywhere. The site only loads standard Google Analytics for anonymous page-view stats.',
+      'No. Every check runs locally in your browser and none of the detected signals are ever sent anywhere.',
 
     'privacy.title': 'Privacy',
     'privacy.body':
-      'Every check runs locally in your browser — your scan results never leave your device. The site only loads Google Analytics for anonymous page-view stats; none of the detected signals are ever sent.',
+      'Every check runs locally in your browser — your scan results never leave your device, and nothing is ever sent anywhere.',
 
     'footer.disclaimer':
       'For reference only, based on public reverse-engineering reports. Not an official statement or advice.',
@@ -154,11 +154,11 @@ export const ui = {
       '把系统时区改出 Asia/Shanghai 等中国时区,把 zh-CN 从浏览器语言列表首位移除,并避免让 Claude Code 走 hostname 含敏感域名 / AI 实验室关键词的中转。',
     'faq.q4': '会上传我的数据吗?',
     'faq.a4':
-      '不会。所有检测都在浏览器本地完成,检测到的任何信号都不会被发送。网站仅加载 Google Analytics 统计匿名访问量。',
+      '不会。所有检测都在浏览器本地完成,检测到的任何信号都不会被发送。',
 
     'privacy.title': '隐私说明',
     'privacy.body':
-      '所有检测都在你的浏览器本地完成,扫描结果不会离开你的设备。网站仅加载 Google Analytics 统计匿名页面访问量,检测到的信号不会被发送。',
+      '所有检测都在你的浏览器本地完成,扫描结果不会离开你的设备,不会向任何地方发送任何数据。',
 
     'footer.disclaimer': '本工具仅供参考,基于公开逆向分析,不构成任何官方结论或建议。',
 

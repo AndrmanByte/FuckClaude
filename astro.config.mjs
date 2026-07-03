@@ -4,8 +4,9 @@ import sitemap from '@astrojs/sitemap';
 
 // `site` must match the real deployment origin so canonical URLs,
 // hreflang links and the generated sitemap point to the correct domain.
+// Replace this placeholder with your own domain before deploying.
 export default defineConfig({
-  site: 'https://fuck-claude.vercel.app',
+  site: 'https://example.com',
   output: 'static',
   i18n: {
     locales: ['en', 'zh'],
