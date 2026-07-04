@@ -13,11 +13,11 @@ export const defaultLang: Lang = 'en';
 
 export const ui = {
   en: {
-    'meta.title': 'Fuck Claude | Are You a Claude "China User"?',
+    'meta.title': 'FuckClaude | Are You a Claude "China User"?',
     'meta.description':
       'One-click check of your browser timezone, language, Chinese fonts and locale to see if Claude Code would flag you as a China user. 100% local, nothing uploaded.',
 
-    'nav.title': 'Fuck Claude',
+    'nav.title': 'FuckClaude',
     'credit': 'Built with Claude Fable 5',
 
     'hero.title': 'Are you a Claude “China user”?',
@@ -93,11 +93,11 @@ export const ui = {
   },
 
   zh: {
-    'meta.title': 'Fuck Claude ｜ 你是「Claude 中国用户」吗',
+    'meta.title': 'FuckClaude ｜ 你是「Claude 中国用户」吗',
     'meta.description':
       '一键检测浏览器时区、语言、中文字体与 locale 等信号,评估你是否会被 Claude Code 判定为中国用户并有封号风险。纯本地运行,零数据上传。',
 
-    'nav.title': 'Fuck Claude',
+    'nav.title': 'FuckClaude',
     'credit': '此网站使用 Claude Fable 5 开发',
 
     'hero.title': '你是「Claude 中国用户」吗',
