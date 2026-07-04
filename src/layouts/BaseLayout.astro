@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   lang: Lang;
@@ -92,6 +93,7 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <Analytics />
   </head>
   <body>
     <slot />
