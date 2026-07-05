@@ -1276,9 +1276,43 @@ const jsonLd = {
         font-size: 0.85rem;
         background: var(--bg-soft);
       }
+      .footer__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
       .footer__disclaimer {
         margin: 0;
         max-width: 70ch;
+      }
+      .footer__contact {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex: none;
+        padding: 7px 12px;
+        border: 1px solid color-mix(in srgb, var(--teal) 25%, var(--border));
+        border-radius: 999px;
+        color: color-mix(in srgb, var(--text) 74%, var(--teal));
+        background: rgba(255, 255, 255, 0.55);
+        box-shadow: var(--shadow-sm);
+        font-weight: 700;
+        transition:
+          transform 0.18s ease,
+          background 0.18s ease,
+          border-color 0.18s ease;
+      }
+      .footer__contact:hover {
+        transform: translateY(-1px);
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.8);
+        border-color: color-mix(in srgb, var(--teal) 42%, var(--border));
+      }
+      .footer__contact svg {
+        width: 16px;
+        height: 16px;
+        color: var(--teal);
       }
 
       /* ---------- responsive ---------- */
@@ -1321,6 +1355,10 @@ const jsonLd = {
         }
         .prose {
           padding: 16px;
+        }
+        .footer__inner {
+          align-items: flex-start;
+          flex-direction: column;
         }
       }
 
