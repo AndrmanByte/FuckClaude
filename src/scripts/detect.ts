@@ -21,6 +21,7 @@ function q<T extends Element = HTMLElement>(sel: string, root: ParentNode = docu
 const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 const RING_R = 52;
 const RING_C = 2 * Math.PI * RING_R;
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 interface Hit {
   signal: SignalDef;
@@ -32,7 +33,18 @@ function setMascot(state: MascotState) {
   q('#mascot')?.setAttribute('data-state', state);
 }
 
-function setRing(total: number) {
+function setProgress(progress: number) {
+  const bar = q<HTMLElement>('#scan-progress-bar');
+  const panel = q<HTMLElement>('.panel');
+  const value = Math.max(0, Math.min(1, progress));
+  bar?.style.setProperty('--progress', String(value));
+  panel?.setAttribute('data-progress', value > 0 && value < 1 ? 'active' : value === 1 ? 'done' : 'idle');
+}
+
+let displayedTotal = 0;
+let scoreAnim = 0;
+
+function renderRing(total: number) {
   const ring = q<SVGCircleElement>('#score-ring');
   const valueEl = q('#score-value');
   if (ring) {
@@ -42,8 +54,32 @@ function setRing(total: number) {
   if (valueEl) valueEl.textContent = String(total);
 }
 
+function setRing(total: number, animate = false) {
+  const target = Math.max(0, Math.min(100, total));
+  if (scoreAnim) cancelAnimationFrame(scoreAnim);
+  if (!animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    displayedTotal = target;
+    renderRing(target);
+    return;
+  }
+
+  const from = displayedTotal;
+  const start = performance.now();
+  const duration = 620;
+  const tick = (now: number) => {
+    const progress = Math.min(1, (now - start) / duration);
+    const next = Math.round(from + (target - from) * easeOutCubic(progress));
+    displayedTotal = next;
+    renderRing(next);
+    if (progress < 1) scoreAnim = requestAnimationFrame(tick);
+  };
+  scoreAnim = requestAnimationFrame(tick);
+}
+
 function resetUI() {
   setRing(0);
+  setProgress(0);
+  q('.panel')?.removeAttribute('data-band');
   const gauge = q('#score-gauge');
   gauge?.removeAttribute('data-band');
   gauge?.setAttribute('data-scanning', 'true');
@@ -77,6 +113,7 @@ function resetUI() {
 function finalize(total: number, hits: Hit[]) {
   const band = riskBand(total);
   setMascot(band);
+  q('.panel')?.setAttribute('data-band', band);
   q('#score-gauge')?.removeAttribute('data-scanning');
   q('#score-gauge')?.setAttribute('data-band', band);
 
@@ -120,6 +157,8 @@ async function run() {
   running = true;
   const btn = q<HTMLButtonElement>('#retest');
   if (btn) btn.disabled = true;
+  btn?.setAttribute('aria-busy', 'true');
+  q('#detector')?.setAttribute('aria-busy', 'true');
 
   setMascot('search');
   resetUI();
@@ -128,10 +167,14 @@ async function run() {
   let total = 0;
   const hits: Hit[] = [];
 
-  for (const signal of SIGNALS) {
+  for (const [index, signal] of SIGNALS.entries()) {
     const row = q(`[data-signal="${signal.id}"]`);
     row?.classList.remove('is-pending');
     row?.classList.add('is-active');
+    setProgress(index / SIGNALS.length);
+    if (row && window.innerWidth < 720) {
+      row.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
     await delay(SCAN_STEP_MS);
 
     let outcome;
@@ -156,7 +199,8 @@ async function run() {
       row.setAttribute('data-verdict', verdict);
     }
 
-    setRing(Math.min(100, total));
+    setRing(Math.min(100, total), true);
+    setProgress((index + 1) / SIGNALS.length);
     if (verdict !== 'low') hits.push({ signal, contribution });
     await delay(SETTLE_MS);
   }
@@ -165,6 +209,8 @@ async function run() {
   const label = q('#retest-label');
   if (label) label.textContent = t('ui.retest');
   if (btn) btn.disabled = false;
+  btn?.removeAttribute('aria-busy');
+  q('#detector')?.removeAttribute('aria-busy');
   running = false;
 }
 
@@ -174,6 +220,33 @@ async function run() {
  */
 function init() {
   q('#retest')?.addEventListener('click', () => run());
+  const panel = q<HTMLElement>('.panel');
+  panel?.addEventListener('pointermove', (event) => {
+    const rect = panel.getBoundingClientRect();
+    panel.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+    panel.style.setProperty('--my', `${event.clientY - rect.top}px`);
+  });
+  panel?.addEventListener('pointerleave', () => {
+    panel.style.removeProperty('--mx');
+    panel.style.removeProperty('--my');
+  });
+
+  const revealItems = document.querySelectorAll('.section-head, .prose, .faq details, .privacy');
+  if (!('IntersectionObserver' in window)) {
+    revealItems.forEach((item) => item.classList.add('is-visible'));
+    return;
+  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    },
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+  );
+  revealItems.forEach((item) => observer.observe(item));
 }
 
 if (document.readyState === 'loading') {

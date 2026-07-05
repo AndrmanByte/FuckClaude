@@ -20,7 +20,19 @@ const STATES = [
 
 <div class="mascot" id="mascot" data-state="doze" aria-hidden="true">
   <div class="mascot__stage">
-    {STATES.map((s) => <img class="mascot__fig" data-mstate={s.id} src={s.src} alt="" decoding="async" />)}
+    {
+      STATES.map((s, index) => (
+        <img
+          class="mascot__fig"
+          data-mstate={s.id}
+          src={s.src}
+          alt=""
+          decoding="async"
+          loading={index === 0 ? 'eager' : 'lazy'}
+          fetchpriority={index === 0 ? 'high' : 'auto'}
+        />
+      ))
+    }
     <span class="mascot__zzz"><i>Z</i><i>Z</i><i>Z</i></span>
   </div>
   <span class="mascot__shadow"></span>
@@ -33,6 +45,7 @@ const STATES = [
     align-items: center;
     width: 232px;
     flex: none;
+    filter: drop-shadow(0 18px 28px rgba(31, 30, 29, 0.08));
   }
   .mascot__stage {
     position: relative;
@@ -50,6 +63,14 @@ const STATES = [
     object-fit: contain;
     transform-origin: 50% 85%;
     will-change: transform;
+    transition: filter 0.35s ease;
+  }
+  .mascot[data-state='search'] .mascot__fig,
+  .mascot[data-state='medium'] .mascot__fig {
+    filter: saturate(1.04) contrast(1.02);
+  }
+  .mascot[data-state='high'] .mascot__fig {
+    filter: saturate(1.08) contrast(1.04);
   }
   .mascot__shadow {
     width: 128px;
@@ -58,6 +79,7 @@ const STATES = [
     background: rgba(31, 30, 29, 0.13);
     filter: blur(3px);
     margin-top: -5px;
+    animation: shadow-breathe 3.8s ease-in-out infinite;
   }
 
   /* ---- state visibility + loops (pop first, then the idle loop) ---- */
@@ -209,6 +231,17 @@ const STATES = [
     100% {
       opacity: 0;
       transform: translate(16px, -30px) scale(1.25);
+    }
+  }
+  @keyframes shadow-breathe {
+    0%,
+    100% {
+      transform: scaleX(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scaleX(0.86);
+      opacity: 0.62;
     }
   }
   /* high risk: furious trembling, gun trained on you */

@@ -15,6 +15,8 @@ const t = useTranslations(lang);
 const home = lang === 'zh' ? '/zh/' : '/';
 ---
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <header class="nav">
   <div class="wrap nav__inner">
     <a class="brand" href={home}>
@@ -36,8 +38,13 @@ const home = lang === 'zh' ? '/zh/' : '/';
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
   <section class="hero">
+    <div class="hero__field" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div class="credit">
       <span class="credit__spark" aria-hidden="true"></span>
       <span class="credit__text">{t('credit')}</span>
@@ -46,19 +53,23 @@ const home = lang === 'zh' ? '/zh/' : '/';
     <h1>{t('hero.title')}</h1>
 
     <div class="panel">
+      <div class="panel__grid" aria-hidden="true"></div>
+      <div class="panel__progress" aria-hidden="true">
+        <span id="scan-progress-bar"></span>
+      </div>
       <div class="panel__main">
         <Mascot />
         <ScoreRing lang={lang} />
       </div>
 
-      <div class="result" id="result" hidden>
+      <div class="result" id="result" hidden aria-live="polite">
         <p class="result__title" id="result-title"></p>
         <div class="result__hits" id="result-hits"></div>
       </div>
     </div>
   </section>
 
-  <section id="scan-sec" aria-labelledby="scan-title">
+  <section id="scan-sec" aria-labelledby="scan-title" class="deferred-section">
     <div class="section-head">
       <h2 id="scan-title">{t('signals.title')}</h2>
       <p>{t('signals.sub')}</p>
@@ -88,7 +99,7 @@ const home = lang === 'zh' ? '/zh/' : '/';
     </ol>
   </section>
 
-  <section id="how-sec" aria-labelledby="how-title">
+  <section id="how-sec" aria-labelledby="how-title" class="deferred-section">
     <div class="section-head">
       <h2 id="how-title">{t('how.title')}</h2>
     </div>
@@ -98,7 +109,7 @@ const home = lang === 'zh' ? '/zh/' : '/';
     </div>
   </section>
 
-  <section id="faq-sec" aria-labelledby="faq-title">
+  <section id="faq-sec" aria-labelledby="faq-title" class="deferred-section">
     <div class="section-head">
       <h2 id="faq-title">{t('faq.title')}</h2>
     </div>
@@ -114,7 +125,7 @@ const home = lang === 'zh' ? '/zh/' : '/';
     </div>
   </section>
 
-  <section id="privacy-sec">
+  <section id="privacy-sec" class="deferred-section">
     <div class="privacy">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect x="5" y="11" width="14" height="9" rx="2"></rect>

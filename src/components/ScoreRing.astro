@@ -22,13 +22,13 @@ const circ = 2 * Math.PI * r;
         r={r}
         style={`stroke-dasharray:${circ}px; stroke-dashoffset:${circ}px;`}></circle>
     </svg>
-    <div class="gauge__center">
+    <div class="gauge__center" aria-live="polite">
       <span class="gauge__num" id="score-value">0</span>
       <span class="gauge__outof">{t('hero.scoreOutOf')}</span>
     </div>
   </div>
 
-  <span class="risk-badge" id="risk-badge">{t('scan.ready')}</span>
+  <span class="risk-badge" id="risk-badge" aria-live="polite">{t('scan.ready')}</span>
   <p class="risk-desc" id="risk-desc"></p>
 
   <button class="scan-btn" id="retest" type="button">
@@ -39,8 +39,25 @@ const circ = 2 * Math.PI * r;
   </button>
 
   <ul class="trust">
-    <li>{t('hero.badge.local')}</li>
-    <li>{t('hero.badge.noUpload')}</li>
-    <li>{t('hero.badge.openSource')}</li>
+    <li>
+      <span class="trust__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12a8 8 0 0 1 13.66-5.66"></path>
+          <path d="M20 12a8 8 0 0 1-13.66 5.66"></path>
+          <path d="M18 4v4h-4"></path>
+          <path d="M6 20v-4h4"></path>
+        </svg>
+      </span>
+      <span>{t('hero.badge.local')}</span>
+    </li>
+    <li>
+      <span class="trust__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3 5 6v5c0 4.5 2.9 8.5 7 10 4.1-1.5 7-5.5 7-10V6l-7-3Z"></path>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+      </span>
+      <span>{t('hero.badge.noUpload')}</span>
+    </li>
   </ul>
 </div>
