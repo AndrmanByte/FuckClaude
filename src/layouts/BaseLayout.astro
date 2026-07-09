@@ -206,6 +206,93 @@ const jsonLd = {
         text-decoration: none;
       }
 
+      .top-ad {
+        border-bottom: 1px solid color-mix(in srgb, var(--teal) 18%, var(--border));
+        background:
+          linear-gradient(90deg, rgba(47, 141, 131, 0.12), rgba(215, 96, 68, 0.1), rgba(47, 141, 131, 0.08)),
+          rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(16px) saturate(1.2);
+      }
+      .top-ad__link {
+        width: 100%;
+        min-height: 52px;
+        margin: 0 auto;
+        padding: 8px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        color: var(--text);
+      }
+      .top-ad__link:hover {
+        text-decoration: none;
+      }
+      .top-ad__media {
+        display: inline-grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.8) inset,
+          0 8px 18px rgba(31, 30, 29, 0.08);
+        overflow: hidden;
+        flex: none;
+      }
+      .top-ad__media img {
+        width: 28px;
+        height: 28px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .top-ad__body {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        align-items: baseline;
+        column-gap: 8px;
+        row-gap: 2px;
+        flex: 1;
+        min-width: 0;
+      }
+      .top-ad__label {
+        color: var(--teal);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .top-ad__name {
+        font-weight: 800;
+        white-space: nowrap;
+      }
+      .top-ad__desc {
+        color: color-mix(in srgb, var(--text) 58%, var(--muted));
+        font-size: 0.86rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .top-ad__action {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 0.78rem;
+        font-weight: 800;
+        white-space: nowrap;
+        box-shadow: 0 8px 18px rgba(31, 30, 29, 0.14);
+        transition:
+          transform 0.18s ease,
+          background 0.18s ease;
+      }
+      .top-ad__link:hover .top-ad__action {
+        transform: translateY(-1px);
+        background: var(--accent-strong);
+      }
+
       /* ---------- nav ---------- */
       .nav {
         position: sticky;
@@ -1317,6 +1404,29 @@ const jsonLd = {
 
       /* ---------- responsive ---------- */
       @media (max-width: 560px) {
+        .top-ad__link {
+          justify-content: flex-start;
+          min-height: 56px;
+          padding-inline: 14px;
+          gap: 9px;
+        }
+        .top-ad__body {
+          display: flex;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 0;
+          flex: 1;
+        }
+        .top-ad__label {
+          display: none;
+        }
+        .top-ad__desc {
+          max-width: 52vw;
+          font-size: 0.76rem;
+        }
+        .top-ad__action {
+          margin-left: auto;
+        }
         .hero {
           padding-top: 22px;
         }

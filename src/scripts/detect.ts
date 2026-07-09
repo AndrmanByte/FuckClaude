@@ -172,9 +172,6 @@ async function run() {
     row?.classList.remove('is-pending');
     row?.classList.add('is-active');
     setProgress(index / SIGNALS.length);
-    if (row && window.innerWidth < 720) {
-      row.scrollIntoView({ block: 'center', behavior: 'smooth' });
-    }
     await delay(SCAN_STEP_MS);
 
     let outcome;
